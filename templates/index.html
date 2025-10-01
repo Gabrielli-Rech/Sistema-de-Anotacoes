@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="form-container">
+    <form action="/" method="POST">
+        <input type="text" name="title" id="title" placeholder="Título" required>
+        <textarea name="content" id="content" placeholder="Criar uma nota..." rows="3" required></textarea>
+        <div class="color-pickers">
+            <label>Fundo: <input type="color" name="color_bg" value="#ffffff"></label>
+            <label>Título: <input type="color" name="color_title" value="#000000"></label>
+            <label>Texto: <input type="color" name="color_text" value="#000000"></label>
+        </div>
+        <button type="submit">Adicionar</button>
+    </form>
+</div>
+
+<div class="notes-grid">
+    {% if not notes %}
+        <p style="text-align: center; width: 100%; color: var(--secondary-text-color);">Nenhuma nota encontrada. Crie uma nova!</p>
+    {% else %}
+        {% for note in notes %}
+        <div class="note-card" style="background-color: {{ note.color_bg }};">
+            <h2 style="color: {{ note.color_title }};">{{ note.title }}</h2>
+            <p style="color: {{ note.color_text }};">{{ note.content }}</p>
+            <div class="card-actions">
+                <a class="edit-button" href="{{ url_for('edit', id=note.id) }}">Editar</a>
+                <a class="delete-button" href="{{ url_for('delete', id=note.id) }}">Excluir</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+```eof
+

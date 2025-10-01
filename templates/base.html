@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anotações Rápidas</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Anotações Rápidas</h1>
+        <button id="theme-toggle">Mudar Tema</button>
+    </header>
+    
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>
+
+<style>
+:root {
+    --primary-bg-color: #f1f3f4;
+    --secondary-bg-color: #ffffff;
+    --primary-text-color: #202124;
+    --secondary-text-color: #5f6368;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(60,64,67,0.302);
+    --button-bg-color: #1a73e8;
+    --button-hover-bg-color: #185abc;
+    --delete-color: #d93025;
+}
+
+/* Definição das variáveis para o Tema Escuro */
+body.dark-mode {
+    --primary-bg-color: #202124;
+    --secondary-bg-color: #3c4043;
+    --primary-text-color: #e8eaed;
+    --secondary-text-color: #bdc1c6;
+    --border-color: #5f6368;
+    --shadow-color: rgba(0,0,0,0.3);
+    --button-bg-color: #8ab4f8;
+    --button-hover-bg-color: #a3c5fb;
+    --delete-color: #f28b82;
+}
+
+/* Agora, usamos as variáveis no resto do nosso CSS */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+}
+
+header h1 {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+}
+
+#theme-toggle {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#theme-toggle:hover {
+    background-color: var(--primary-bg-color);
+}
+
+.form-container, .note-card {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 2px 0 var(--shadow-color);
+    transition: background-color 0.3s, border 0.3s;
+}
+
+form input[type="text"],
+form textarea {
+    background-color: transparent;
+    color: var(--primary-text-color);
+    border: none;
+}
+
+form button {
+    background-color: var(--button-bg-color);
+    color: white;
+}
+
+body.dark-mode form button {
+    color: #202124;
+}
+
+form button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.delete-button {
+    color: var(--delete-color) !important;
+}
+
+/* O resto do CSS */
+.form-container { max-width: 600px; margin: 0 auto 40px auto; padding: 20px; border-radius: 8px; }
+form { display: flex; flex-direction: column; }
+form label { margin-top: 10px; margin-bottom: 5px; color: var(--secondary-text-color); }
+form input[type="text"], form textarea { padding: 10px; font-size: 1rem; margin-bottom: 10px; resize: vertical; width: 100%; box-sizing: border-box; }
+form input[type="text"]:focus, form textarea:focus { outline: none; }
+.color-pickers { display: flex; justify-content: space-around; align-items: center; margin: 10px 0; padding: 10px; background-color: rgba(0,0,0,0.05); border-radius: 4px; }
+.color-pickers label { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; color: var(--secondary-text-color); }
+form button { align-self: flex-end; padding: 10px 20px; border: none; font-weight: 500; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; margin-top: 10px; }
+.notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+.note-card { border-radius: 8px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; overflow-wrap: break-word; }
+.note-card h2 { font-size: 1.1em; font-weight: 500; margin: 0 0 10px 0; }
+.note-card p { font-size: 1em; white-space: pre-wrap; flex-grow: 1; margin: 0 0 15px 0; }
+.card-actions { display: flex; justify-content: flex-end; align-items: center; gap: 15px; padding-top: 10px; border-top: 1px solid var(--border-color); margin-top: auto; }
+.edit-button, .delete-button { text-decoration: none; font-size: 0.9em; font-weight: 500; padding: 5px; border-radius: 4px; transition: background-color 0.2s; }
+.edit-button:hover, .delete-button:hover { text-decoration: none; background-color: rgba(128,128,128,0.1); }
+.edit-button { color: var(--secondary-text-color); }
+</style>

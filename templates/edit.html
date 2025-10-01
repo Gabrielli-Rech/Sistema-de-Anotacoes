@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="form-container">
+    <h2>Editando Nota</h2>
+    <form action="/edit/{{ note.id }}" method="POST">
+        <label for="title">Título</label>
+        <input type="text" name="title" id="title" value="{{ note.title }}" required>
+        
+        <label for="content">Conteúdo</label>
+        <textarea name="content" id="content" rows="5" required>{{ note.content }}</textarea>
+        
+        <div class="color-pickers">
+            <label>Fundo: <input type="color" name="color_bg" value="{{ note.color_bg }}"></label>
+            <label>Título: <input type="color" name="color_title" value="{{ note.color_title }}"></label>
+            <label>Texto: <input type="color" name="color_text" value="{{ note.color_text }}"></label>
+        </div>
+        <button type="submit">Salvar Alterações</button>
+    </form>
+</div>
+{% endblock %}
